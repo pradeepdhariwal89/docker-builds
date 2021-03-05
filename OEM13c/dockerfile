@@ -1,0 +1,41 @@
+FROM oraclelinux:7
+COPY id_rsa.pub /root/.ssh/authorized_keys
+COPY new_install.rsp /tmp/
+RUN chmod 777 /tmp/new_install.rsp
+RUN yum install -y compat-libcap1
+RUN yum install -y compat-libstdc++-33
+RUN yum install -y compat-libstdc++-33-3.2.3-72.el7.i686
+RUN yum install -y gcc
+RUN yum install -y gcc-c++
+RUN yum install -y libaio
+RUN yum install -y libaio-devel
+RUN yum install -y dejavu-serif-fonts
+RUN yum install -y ksh
+RUN yum install -y make
+RUN yum install -y sysstat
+RUN yum install -y numactl
+RUN yum install -y numactl-devel
+RUN yum install -y motif
+RUN yum install -y motif-devel
+RUN yum install -y redhat-lsb
+RUN echo "kernel.shmmax=2147483648" >> /etc/sysctl.conf
+RUN /usr/sbin/groupadd oinstall
+RUN /usr/sbin/useradd -g oinstall oracle
+RUN echo 'oracle:Welcome2021' | chpasswd
+RUN echo net.ipv4.ip_local_port_range = 11000 65000 >> /etc/sysctl.conf
+RUN echo "@oracle        hard    nproc           4098" >> /etc/security/limits.conf
+RUN mkdir /u01
+RUN chown oracle:oinstall /u01
+COPY softwareFiles/em13400_linux64* /tmp/
+RUN chown oracle:oinstall /tmp/em13400_linux64*
+USER oracle
+RUN chmod -R 755 /u01
+RUN chmod 755 /tmp/em13400_linux64*
+RUN mkdir -p /u01/app/oracle/em13c/agentbasedir
+RUN mkdir -p /u01/app/oracle/em13c/oraclehome
+RUN /tmp/em13400_linux64.bin -silent -responseFile /tmp/new_install.rsp
+RUN rm /tmp/em13400_linux64*
+USER root
+RUN /u01/app/oracle/oraInventory/orainstRoot.sh
+RUN /u01/app/oracle/em13c/oraclehome/allroot.sh
+ENTRYPOINT ["/usr/sbin/init"]
