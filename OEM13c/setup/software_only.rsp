@@ -1,0 +1,159 @@
+####################################################################
+##                                                                ##
+## Copyright (c) 2015 Oracle. All rights reserved.                ##
+##                                                                ##
+## Specify values for the variables listed below to customize     ##
+## your installation.                                             ##
+##                                                                ##
+## Each variable is associated with a comment. The comment        ##
+## identifies the variable type.                                  ##
+##                                                                ##
+## Specify values in the following format:                        ##
+##                                                                ##
+##         Type         Example                                   ##
+##         ----         -------                                   ##
+##         string       Sample Value                              ##
+##         boolean      TRUE or FALSE                             ##
+##         number       1000                                      ##
+##                                                                ##
+####################################################################
+####################################################################
+
+
+
+
+#------------------------------------------------------------------#
+# Name        : RESPONSEFILE_VERSION
+# Type        : string
+# Description : Response file version
+#------------------------------------------------------------------#
+RESPONSEFILE_VERSION=2.2.1.0.0
+
+#------------------------------------------------------------------#
+# Name        : UNIX_GROUP_NAME
+# Type        : string
+# Description : UNIX group name.
+# Example     : UNIX_GROUP_NAME=dba
+#------------------------------------------------------------------#
+UNIX_GROUP_NAME=oinstall
+
+#------------------------------------------------------------------#
+# Name        : INVENTORY_LOCATION
+# Type        : string
+# Description : Inventory location.
+# Example     : INVENTORY_LOCATION=/scratch/oracle/oraInventory
+#------------------------------------------------------------------#
+INVENTORY_LOCATION=/u01/app/oraInventory
+
+#------------------------------------------------------------------#
+# Name        : SECURITY_UPDATES_VIA_MYORACLESUPPORT
+# Type        : boolean
+# Description : Whether security updates are required via My Oracle Support.
+#------------------------------------------------------------------#
+SECURITY_UPDATES_VIA_MYORACLESUPPORT=false
+
+#------------------------------------------------------------------#
+# Name        : DECLINE_SECURITY_UPDATES
+# Type        : boolean
+# Description : Whether security updates should be declined.
+#------------------------------------------------------------------#
+DECLINE_SECURITY_UPDATES=true
+
+#------------------------------------------------------------------#
+# Name        : MYORACLESUPPORT_USERNAME
+# Type        : string
+# Description : User name and password for My Oracle Support access, these will be effected only when SECURITY_UPDATES_VIA_MYORACLESUPPORT=true.
+#------------------------------------------------------------------#
+MYORACLESUPPORT_USERNAME=
+
+#------------------------------------------------------------------#
+# Name        : MYORACLESUPPORT_PASSWORD
+# Type        : string
+# Description : User name and password for My Oracle Support access, these will be effected only when SECURITY_UPDATES_VIA_MYORACLESUPPORT=true.
+#------------------------------------------------------------------#
+MYORACLESUPPORT_PASSWORD=
+
+#------------------------------------------------------------------#
+# Name        : INSTALL_UPDATES_SELECTION
+# Type        : string
+# Description : Option 1. If you want to skip the software updates, provide 
+#               INSTALL_UPDATES_SELECTION="skip".
+#               Option 2. If you have already downloaded the updates then provide
+#               INSTALL_UPDATES_SELECTION="staged".
+#               If you choose the Option 2 then make sure you also provide STAGE_LOCATION.
+#------------------------------------------------------------------#
+INSTALL_UPDATES_SELECTION=skip
+
+#------------------------------------------------------------------#
+# Name        : STAGE_LOCATION
+# Type        : string
+# Description : Stage location for software updates. It will be effected only when INSTALL_UPDATES_SELECTION is  set to "staged".
+#               If you want to download the updates during the installation, make sure you provide
+#               MYORACLESUPPORT_USERNAME_FOR_SOFTWAREUPDATES and MYORACLESUPPORT_PASSWORD_FOR_SOFTWAREUPDATES
+#               and set INSTALL_UPDATES_SELECTION="download".
+#------------------------------------------------------------------#
+STAGE_LOCATION=
+
+#------------------------------------------------------------------#
+# Name        : MYORACLESUPPORT_USERNAME_FOR_SOFTWAREUPDATES
+# Type        : string
+# Description : Stage location for software updates. It will be effected only when INSTALL_UPDATES_SELECTION is  set to "staged".
+#               If you want to download the updates during the installation, make sure you provide
+#               MYORACLESUPPORT_USERNAME_FOR_SOFTWAREUPDATES and MYORACLESUPPORT_PASSWORD_FOR_SOFTWAREUPDATES
+#               and set INSTALL_UPDATES_SELECTION="download".
+#------------------------------------------------------------------#
+MYORACLESUPPORT_USERNAME_FOR_SOFTWAREUPDATES=
+
+#------------------------------------------------------------------#
+# Name        : MYORACLESUPPORT_PASSWORD_FOR_SOFTWAREUPDATES
+# Type        : string
+# Description : Stage location for software updates. It will be effected only when INSTALL_UPDATES_SELECTION is  set to "staged".
+#               If you want to download the updates during the installation, make sure you provide
+#               MYORACLESUPPORT_USERNAME_FOR_SOFTWAREUPDATES and MYORACLESUPPORT_PASSWORD_FOR_SOFTWAREUPDATES
+#               and set INSTALL_UPDATES_SELECTION="download".
+#------------------------------------------------------------------#
+MYORACLESUPPORT_PASSWORD_FOR_SOFTWAREUPDATES=
+
+#------------------------------------------------------------------#
+# Name        : ORACLE_MIDDLEWARE_HOME_LOCATION
+# Type        : string
+# Description : Middleware home location.
+#------------------------------------------------------------------#
+ORACLE_MIDDLEWARE_HOME_LOCATION=/u01/app/oracle/product/oemfm13c
+
+#------------------------------------------------------------------#
+# Name        : AGENT_BASE_DIR
+# Type        : string
+# Description : Agent home location.
+#------------------------------------------------------------------#
+AGENT_BASE_DIR=/u01/app/oracle/product/agent13c
+
+#------------------------------------------------------------------#
+# Name        : ORACLE_HOSTNAME
+# Type        : string
+# Description : Current Host name where the installer is invoked.
+#               By default the fully qualified hostname of the machine will taken(without providing this value)
+#               Value for this ORACLE_HOSTNAME has to be provided only if you want to configure with different hostname.
+#------------------------------------------------------------------#
+ORACLE_HOSTNAME=oem13c.localdomain
+
+#------------------------------------------------------------------#
+# Name        : b_upgrade
+# Type        : boolean
+# Description : To Specify whether it is Normal Install or Upgrade.
+#------------------------------------------------------------------#
+b_upgrade=false
+
+#------------------------------------------------------------------#
+# Name        : EM_INSTALL_TYPE
+# Type        : string
+# Description : Type of Grid Control install being performed.
+#------------------------------------------------------------------#
+EM_INSTALL_TYPE=NOSEED
+
+#------------------------------------------------------------------#
+# Name        : CONFIGURATION_TYPE
+# Type        : string
+# Description : Value can be "ADVANCED" or "LATER".
+#------------------------------------------------------------------#
+CONFIGURATION_TYPE=LATER

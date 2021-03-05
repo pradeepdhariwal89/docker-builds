@@ -76,15 +76,14 @@ COPY --chown=oracle:dba setup/* $ORACLE_SCRIPTS/
 
 FROM base
 
-USER oracle
 COPY --chown=oracle:oinstall --from=builder /u01/app /u01/app
-RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
 
 USER root
 RUN /u01/app/oraInventory/orainstRoot.sh && \
 	/u01/app/oracle/product/19.0.0/dbhome_1/root.sh
 	
 USER oracle
+RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
 WORKDIR /home/oracle
 
 CMD ${ORACLE_SCRIPTS}/entrypoint.sh

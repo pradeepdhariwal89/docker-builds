@@ -1,41 +1,81 @@
-FROM oraclelinux:7
-COPY id_rsa.pub /root/.ssh/authorized_keys
-COPY new_install.rsp /tmp/
-RUN chmod 777 /tmp/new_install.rsp
-RUN yum install -y compat-libcap1
-RUN yum install -y compat-libstdc++-33
-RUN yum install -y compat-libstdc++-33-3.2.3-72.el7.i686
-RUN yum install -y gcc
-RUN yum install -y gcc-c++
-RUN yum install -y libaio
-RUN yum install -y libaio-devel
-RUN yum install -y dejavu-serif-fonts
-RUN yum install -y ksh
-RUN yum install -y make
-RUN yum install -y sysstat
-RUN yum install -y numactl
-RUN yum install -y numactl-devel
-RUN yum install -y motif
-RUN yum install -y motif-devel
-RUN yum install -y redhat-lsb
-RUN echo "kernel.shmmax=2147483648" >> /etc/sysctl.conf
-RUN /usr/sbin/groupadd oinstall
-RUN /usr/sbin/useradd -g oinstall oracle
-RUN echo 'oracle:Welcome2021' | chpasswd
-RUN echo net.ipv4.ip_local_port_range = 11000 65000 >> /etc/sysctl.conf
-RUN echo "@oracle        hard    nproc           4098" >> /etc/security/limits.conf
-RUN mkdir /u01
-RUN chown oracle:oinstall /u01
-COPY softwareFiles/em13400_linux64* /tmp/
-RUN chown oracle:oinstall /tmp/em13400_linux64*
+FROM oraclelinux:7 as base
+
+ENV TMP=/tmp \
+	TMPDIR=/tmp \
+	ORACLE_BASE=/u01/app/oracle \
+	ORA_INVENTORY=/u01/app/oraInventory \
+	ORACLE_SCRIPTS=/u01/app/oracle/scripts
+
+
+RUN yum install -y compat-libcap1 && \
+	yum install -y compat-libstdc++-33 && \
+	yum install -y compat-libstdc++-33-3.2.3-72.el7.i686 && \
+	yum install -y gcc && \
+	yum install -y gcc-c++ && \
+	yum install -y libaio && \
+	yum install -y libaio-devel && \
+	yum install -y dejavu-serif-fonts && \
+	yum install -y ksh && \
+	yum install -y make && \
+	yum install -y sysstat && \
+	yum install -y numactl && \
+	yum install -y numactl-devel && \
+	yum install -y motif && \
+	yum install -y motif-devel && \
+	yum install -y redhat-lsb && \
+	echo "kernel.shmmax=2147483648" >> /etc/sysctl.conf && \
+	/usr/sbin/groupadd oinstall && \
+	/usr/sbin/useradd -g oinstall oracle && \
+	echo "127.0.0.10	oem13c.localdomain	oem13c" >> /etc/hosts
+	echo 'oracle:Welcome2021' | chpasswd && \
+	echo net.ipv4.ip_local_port_range = 11000 65000 >> /etc/sysctl.conf && \
+	echo "@oracle        hard    nproc           4098" >> /etc/security/limits.conf && \
+	mkdir /u01 && \
+	chown oracle:oinstall /u01
+
+
+##################################################################
+#
+#Create new layer for installing OEM software.
+#
+##################################################################
+
+FROM base as builder
+
 USER oracle
-RUN chmod -R 755 /u01
-RUN chmod 755 /tmp/em13400_linux64*
-RUN mkdir -p /u01/app/oracle/em13c/agentbasedir
-RUN mkdir -p /u01/app/oracle/em13c/oraclehome
-RUN /tmp/em13400_linux64.bin -silent -responseFile /tmp/new_install.rsp
-RUN rm /tmp/em13400_linux64*
+
+COPY --chown=oracle:oinstall softwareFiles/em13400_linux64* /tmp/
+COPY --chown=oracle:oinstall setup/software_only.rsp /tmp/
+
+RUN chmod -R 755 /u01 && \
+	mkdir -p /u01/app/oracle/product/oemfm13c && \
+	mkdir -p /u01/app/oracle/product/agent13c && \
+	chmod 755 /tmp/em13400_linux64* && \
+	/tmp/em13400_linux64.bin -silent -responseFile /tmp/software_only.rsp && \
+	rm /tmp/em13400_linux64*
+
 USER root
-RUN /u01/app/oracle/oraInventory/orainstRoot.sh
-RUN /u01/app/oracle/em13c/oraclehome/allroot.sh
-ENTRYPOINT ["/usr/sbin/init"]
+
+
+##################################################################
+#
+#Create final layer with oracle OEM configuration.
+#
+##################################################################
+
+FROM base
+
+COPY --chown=oracle:oinstall --from=builder /u01/app /u01/app
+
+USER root
+
+RUN /u01/app/oraInventory/orainstRoot.sh && \
+	/u01/app/oracle/product/oemfm13c/allroot.sh
+	
+USER oracle
+
+RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
+
+WORKDIR /home/oracle
+
+CMD ${ORACLE_SCRIPTS}/entrypoint.sh
