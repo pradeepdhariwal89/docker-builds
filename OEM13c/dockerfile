@@ -3,9 +3,14 @@ FROM oraclelinux:7 as base
 ENV TMP=/tmp \
 	TMPDIR=/tmp \
 	ORACLE_BASE=/u01/app/oracle \
-	ORA_INVENTORY=/u01/app/oraInventory \
-	ORACLE_SCRIPTS=/u01/app/oracle/scripts
+	ORA_INVENTORY=/u01/app/oracle/oraInventory \
+	ORACLE_SCRIPTS=/u01/app/oracle/scripts \
+	MW_HOME=/u01/app/oracle/product/oemfm13c \
+	AGENT_BASE=/u01/app/oracle/product/agent13c
 
+ENV GC_INST=${ORACLE_BASE}/gc_inst \
+	OMS_HOME=${MW_HOME} \
+	SW_LIB=${ORACLE_BASE}/swlib
 
 RUN yum install -y compat-libcap1 && \
 	yum install -y compat-libstdc++-33 && \
@@ -26,7 +31,6 @@ RUN yum install -y compat-libcap1 && \
 	echo "kernel.shmmax=2147483648" >> /etc/sysctl.conf && \
 	/usr/sbin/groupadd oinstall && \
 	/usr/sbin/useradd -g oinstall oracle && \
-	echo "127.0.0.10	oem13c.localdomain	oem13c" >> /etc/hosts && \
 	echo 'oracle:Welcome2021' | chpasswd && \
 	echo "net.ipv4.ip_local_port_range = 11000 65000" >> /etc/sysctl.conf && \
 	echo "@oracle        hard    nproc           4098" >> /etc/security/limits.conf && \
@@ -48,8 +52,9 @@ COPY --chown=oracle:oinstall softwareFiles/em13400_linux64* /tmp/
 COPY --chown=oracle:oinstall setup/software_only.rsp /tmp/
 
 RUN chmod -R 755 /u01 && \
-	mkdir -p /u01/app/oracle/product/oemfm13c && \
-	mkdir -p /u01/app/oracle/product/agent13c && \
+	mkdir -p ${MW_HOME} && \
+	mkdir -p ${AGENT_BASE} && \
+	mkdir -p ${ORACLE_SCRIPTS} && \
 	chmod 755 /tmp/em13400_linux64* && \
 	/tmp/em13400_linux64.bin -silent -responseFile /tmp/software_only.rsp && \
 	rm /tmp/em13400_linux64*
@@ -66,11 +71,6 @@ USER root
 FROM base
 
 COPY --chown=oracle:oinstall --from=builder /u01/app /u01/app
-
-USER root
-
-RUN /u01/app/oraInventory/orainstRoot.sh && \
-	/u01/app/oracle/product/oemfm13c/allroot.sh
 	
 USER oracle
 
