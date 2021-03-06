@@ -150,7 +150,7 @@ ORACLE_MIDDLEWARE_HOME_LOCATION=/u01/app/oracle/product/oemfm13c
 # Description : Current Host name where the installer is invoked.By default the fully qualified hostname of the machine will 
 #               taken(without providing this value)Value for this ORACLE_HOSTNAME has to be provided only if you want to configure with different hostname.
 #------------------------------------------------------------------#
-ORACLE_HOSTNAME=oem13c1.localdomain
+ORACLE_HOSTNAME=oem13c.localdomain
 
 #------------------------------------------------------------------#
 # Name        : AGENT_BASE_DIR
@@ -171,28 +171,28 @@ WLS_ADMIN_SERVER_USERNAME=weblogic
 # Type        : string
 # Description : Weblogic admin server  confirm password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_PASSWORD=teriyaki007
+WLS_ADMIN_SERVER_PASSWORD=%%WLS_ADMIN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : WLS_ADMIN_SERVER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Weblogic admin server password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_CONFIRM_PASSWORD=teriyaki007
+WLS_ADMIN_SERVER_CONFIRM_PASSWORD=%%WLS_ADMIN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_PASSWORD
 # Type        : string
 # Description : Node Manager password.
 #------------------------------------------------------------------#
-NODE_MANAGER_PASSWORD=teriyaki007
+NODE_MANAGER_PASSWORD=%%NODE_MGR_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Node Manager confirm password.
 #------------------------------------------------------------------#
-NODE_MANAGER_CONFIRM_PASSWORD=teriyaki007
+NODE_MANAGER_CONFIRM_PASSWORD=%%NODE_MGR_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : ORACLE_INSTANCE_HOME_LOCATION
@@ -218,7 +218,7 @@ CONFIGURE_ORACLE_SOFTWARE_LIBRARY=true
 #               Software Library can be configured. Ensure that the location you enter is a shared location on the OMS host. This helps when you install additional OMS
 #               instances that can use the same shared Software Library location.
 #------------------------------------------------------------------#
-SOFTWARE_LIBRARY_LOCATION=/u01/app/oracle/product/swlib
+SOFTWARE_LIBRARY_LOCATION=/u01/app/oracle/swlib
 
 #------------------------------------------------------------------#
 # Name        : DATABASE_HOSTNAME
@@ -226,7 +226,7 @@ SOFTWARE_LIBRARY_LOCATION=/u01/app/oracle/product/swlib
 # Description : Hostname of the Repository database.
 # Example     : DATABASE_HOSTNAME=hostname.domain.com
 #------------------------------------------------------------------#
-DATABASE_HOSTNAME=db19c1.localdomain
+DATABASE_HOSTNAME=%%DATABASE_HOSTNAME%%
 
 #------------------------------------------------------------------#
 # Name        : LISTENER_PORT
@@ -234,7 +234,7 @@ DATABASE_HOSTNAME=db19c1.localdomain
 # Description : Port on which the Repository database is running.
 # Example     : LISTENER_PORT=1521
 #------------------------------------------------------------------#
-LISTENER_PORT=1521
+LISTENER_PORT=%%DATABASE_PORT%%
 
 #------------------------------------------------------------------#
 # Name        : SERVICENAME_OR_SID
@@ -242,7 +242,7 @@ LISTENER_PORT=1521
 # Description : SID or Service name  of the Repository database.
 # Example     : SERVICENAME_OR_SID=emrep
 #------------------------------------------------------------------#
-SERVICENAME_OR_SID=OEM13
+SERVICENAME_OR_SID=$$DATABASE_SID%%
 
 #------------------------------------------------------------------#
 # Name        : SYS_PASSWORD
@@ -250,7 +250,7 @@ SERVICENAME_OR_SID=OEM13
 # Description : Password of DBA user used to create repository schema.
 # Example     : SYS_PASSWORD=password
 #------------------------------------------------------------------#
-SYS_PASSWORD=SysPassword1
+SYS_PASSWORD=%%DATABASE_SYS_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_PASSWORD
@@ -258,21 +258,21 @@ SYS_PASSWORD=SysPassword1
 # Description : Password of sysman user.
 # Example     : SYSMAN_PASSWORD=password
 #------------------------------------------------------------------#
-SYSMAN_PASSWORD=teriyaki007
+SYSMAN_PASSWORD=%%SYSMAN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_CONFIRM_PASSWORD
 # Type        : string
 # Description : Password of sysman user.
 #------------------------------------------------------------------#
-SYSMAN_CONFIRM_PASSWORD=teriyaki007
+SYSMAN_CONFIRM_PASSWORD=%%SYSMAN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : DEPLOYMENT_SIZE
 # Type        : string
 # Description : If you are planning to do simple install then use it.
 #------------------------------------------------------------------#
-DEPLOYMENT_SIZE=SMALL
+DEPLOYMENT_SIZE=%%DEPLOYMENT_SIZE%%
 
 #------------------------------------------------------------------#
 # Name        : MANAGEMENT_TABLESPACE_LOCATION
@@ -280,7 +280,7 @@ DEPLOYMENT_SIZE=SMALL
 # Description : Management table space location.
 # Example     : MANAGEMENT_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt.dbf
 #------------------------------------------------------------------#
-MANAGEMENT_TABLESPACE_LOCATION=/u02/oradata/CDB1/OEM13/mgmt.dbf
+MANAGEMENT_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt.dbf
 
 #------------------------------------------------------------------#
 # Name        : CONFIGURATION_DATA_TABLESPACE_LOCATION
@@ -288,7 +288,7 @@ MANAGEMENT_TABLESPACE_LOCATION=/u02/oradata/CDB1/OEM13/mgmt.dbf
 # Description : Configuration table space location.
 # Example     : CONFIGURATION_DATA_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_ecm_depot1.dbf
 #------------------------------------------------------------------#
-CONFIGURATION_DATA_TABLESPACE_LOCATION=/u02/oradata/CDB1/OEM13/mgmt_ecm_depot1.dbf
+CONFIGURATION_DATA_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_ecm_depot1.dbf
 
 #------------------------------------------------------------------#
 # Name        : JVM_DIAGNOSTICS_TABLESPACE_LOCATION
@@ -296,21 +296,21 @@ CONFIGURATION_DATA_TABLESPACE_LOCATION=/u02/oradata/CDB1/OEM13/mgmt_ecm_depot1.d
 # Description : JVM table space location.
 # Example     : JVM_DIAGNOSTICS_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_deepdive.dbf
 #------------------------------------------------------------------#
-JVM_DIAGNOSTICS_TABLESPACE_LOCATION=/u02/oradata/CDB1/OEM13/mgmt_deepdive.dbf
+JVM_DIAGNOSTICS_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_deepdive.dbf
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_PASSWORD=teriyaki007
+AGENT_REGISTRATION_PASSWORD=%%AGENT_REG_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_CONFIRM_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_CONFIRM_PASSWORD=teriyaki007
+AGENT_REGISTRATION_CONFIRM_PASSWORD=%%AGENT_REG_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : STATIC_PORTS_FILE

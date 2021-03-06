@@ -26,9 +26,9 @@ RUN yum install -y compat-libcap1 && \
 	echo "kernel.shmmax=2147483648" >> /etc/sysctl.conf && \
 	/usr/sbin/groupadd oinstall && \
 	/usr/sbin/useradd -g oinstall oracle && \
-	echo "127.0.0.10	oem13c.localdomain	oem13c" >> /etc/hosts
+	echo "127.0.0.10	oem13c.localdomain	oem13c" >> /etc/hosts && \
 	echo 'oracle:Welcome2021' | chpasswd && \
-	echo net.ipv4.ip_local_port_range = 11000 65000 >> /etc/sysctl.conf && \
+	echo "net.ipv4.ip_local_port_range = 11000 65000" >> /etc/sysctl.conf && \
 	echo "@oracle        hard    nproc           4098" >> /etc/security/limits.conf && \
 	mkdir /u01 && \
 	chown oracle:oinstall /u01
@@ -74,7 +74,10 @@ RUN /u01/app/oraInventory/orainstRoot.sh && \
 	
 USER oracle
 
-RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
+RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile && \
+	mkdir -p ${ORACLE_SCRIPTS}
+
+COPY --chown=oracle:oinstall setup/* ${ORACLE_SCRIPTS}/
 
 WORKDIR /home/oracle
 
