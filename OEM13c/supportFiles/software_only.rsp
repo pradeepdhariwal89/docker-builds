@@ -43,7 +43,7 @@ UNIX_GROUP_NAME=oinstall
 # Description : Inventory location.
 # Example     : INVENTORY_LOCATION=/scratch/oracle/oraInventory
 #------------------------------------------------------------------#
-INVENTORY_LOCATION=/u01/app/oraInventory
+INVENTORY_LOCATION=/u01/app/oracle/oraInventory
 
 #------------------------------------------------------------------#
 # Name        : SECURITY_UPDATES_VIA_MYORACLESUPPORT

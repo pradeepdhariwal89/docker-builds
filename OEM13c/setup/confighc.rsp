@@ -43,7 +43,7 @@ UNIX_GROUP_NAME=oinstall
 # Description : Specify INENTORY LOCATION if there is no central inventory and inventory location is not passed using -invptrLoc.
 # Example     : INVENTORY_LOCATION=/scratch/oracle/oraInventory
 #------------------------------------------------------------------#
-INVENTORY_LOCATION=/u01/app/oraInventory
+INVENTORY_LOCATION=/u01/app/oracle/oraInventory
 
 #------------------------------------------------------------------#
 # Name        : SECURITY_UPDATES_VIA_MYORACLESUPPORT

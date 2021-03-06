@@ -43,7 +43,7 @@ UNIX_GROUP_NAME=oinstall
 # Description : Specify INENTORY LOCATION if there is no central inventory and inventory location is not passed using -invptrLoc.
 # Example     : INVENTORY_LOCATION=/scratch/oracle/oraInventory
 #------------------------------------------------------------------#
-INVENTORY_LOCATION=/u01/app/oraInventory
+INVENTORY_LOCATION=/u01/app/oracle/oraInventory
 
 #------------------------------------------------------------------#
 # Name        : SECURITY_UPDATES_VIA_MYORACLESUPPORT
@@ -171,28 +171,28 @@ WLS_ADMIN_SERVER_USERNAME=weblogic
 # Type        : string
 # Description : Weblogic admin server  confirm password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_PASSWORD=SysPassword1
+WLS_ADMIN_SERVER_PASSWORD=%%WLS_ADMIN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : WLS_ADMIN_SERVER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Weblogic admin server password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_CONFIRM_PASSWORD=SysPassword1
+WLS_ADMIN_SERVER_CONFIRM_PASSWORD=%%WLS_ADMIN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_PASSWORD
 # Type        : string
 # Description : Node Manager password.
 #------------------------------------------------------------------#
-NODE_MANAGER_PASSWORD=SysPassword1
+NODE_MANAGER_PASSWORD=%%NODE_MGR_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Node Manager confirm password.
 #------------------------------------------------------------------#
-NODE_MANAGER_CONFIRM_PASSWORD=SysPassword1
+NODE_MANAGER_CONFIRM_PASSWORD=%%NODE_MGR_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : ORACLE_INSTANCE_HOME_LOCATION
@@ -226,7 +226,7 @@ SOFTWARE_LIBRARY_LOCATION=/u01/app/oracle/swlib
 # Description : Hostname of the Repository database.
 # Example     : DATABASE_HOSTNAME=hostname.domain.com
 #------------------------------------------------------------------#
-DATABASE_HOSTNAME=dbserver.localdomain
+DATABASE_HOSTNAME=%%DATABASE_HOSTNAME%%
 
 #------------------------------------------------------------------#
 # Name        : LISTENER_PORT
@@ -234,7 +234,7 @@ DATABASE_HOSTNAME=dbserver.localdomain
 # Description : Port on which the Repository database is running.
 # Example     : LISTENER_PORT=1521
 #------------------------------------------------------------------#
-LISTENER_PORT=1521
+LISTENER_PORT=%%DATABASE_PORT%%
 
 #------------------------------------------------------------------#
 # Name        : SERVICENAME_OR_SID
@@ -242,7 +242,7 @@ LISTENER_PORT=1521
 # Description : SID or Service name  of the Repository database.
 # Example     : SERVICENAME_OR_SID=emrep
 #------------------------------------------------------------------#
-SERVICENAME_OR_SID=PDB1
+SERVICENAME_OR_SID=%%DATABASE_SID%%
 
 #------------------------------------------------------------------#
 # Name        : SYS_PASSWORD
@@ -250,7 +250,7 @@ SERVICENAME_OR_SID=PDB1
 # Description : Password of DBA user used to create repository schema.
 # Example     : SYS_PASSWORD=password
 #------------------------------------------------------------------#
-SYS_PASSWORD=SysPassword1
+SYS_PASSWORD=%%DATABASE_SYS_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_PASSWORD
@@ -258,21 +258,21 @@ SYS_PASSWORD=SysPassword1
 # Description : Password of sysman user.
 # Example     : SYSMAN_PASSWORD=password
 #------------------------------------------------------------------#
-SYSMAN_PASSWORD=SysPassword1
+SYSMAN_PASSWORD=%%SYSMAN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_CONFIRM_PASSWORD
 # Type        : string
 # Description : Password of sysman user.
 #------------------------------------------------------------------#
-SYSMAN_CONFIRM_PASSWORD=SysPassword1
+SYSMAN_CONFIRM_PASSWORD=%%SYSMAN_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : DEPLOYMENT_SIZE
 # Type        : string
 # Description : If you are planning to do simple install then use it.
 #------------------------------------------------------------------#
-DEPLOYMENT_SIZE=SMALL
+DEPLOYMENT_SIZE=%%DEPLOYMENT_SIZE%%
 
 #------------------------------------------------------------------#
 # Name        : MANAGEMENT_TABLESPACE_LOCATION
@@ -280,7 +280,7 @@ DEPLOYMENT_SIZE=SMALL
 # Description : Management table space location.
 # Example     : MANAGEMENT_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt.dbf
 #------------------------------------------------------------------#
-MANAGEMENT_TABLESPACE_LOCATION=/DATA/CDB1/BCA3230693A20C8AE053020011AC0D23/datafile/mgmt.dbf
+MANAGEMENT_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt.dbf
 
 #------------------------------------------------------------------#
 # Name        : CONFIGURATION_DATA_TABLESPACE_LOCATION
@@ -288,7 +288,7 @@ MANAGEMENT_TABLESPACE_LOCATION=/DATA/CDB1/BCA3230693A20C8AE053020011AC0D23/dataf
 # Description : Configuration table space location.
 # Example     : CONFIGURATION_DATA_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_ecm_depot1.dbf
 #------------------------------------------------------------------#
-CONFIGURATION_DATA_TABLESPACE_LOCATION=/DATA/CDB1/BCA3230693A20C8AE053020011AC0D23/datafile/mgmt_ecm_depot1.dbf
+CONFIGURATION_DATA_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_ecm_depot1.dbf
 
 #------------------------------------------------------------------#
 # Name        : JVM_DIAGNOSTICS_TABLESPACE_LOCATION
@@ -296,21 +296,21 @@ CONFIGURATION_DATA_TABLESPACE_LOCATION=/DATA/CDB1/BCA3230693A20C8AE053020011AC0D
 # Description : JVM table space location.
 # Example     : JVM_DIAGNOSTICS_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_deepdive.dbf
 #------------------------------------------------------------------#
-JVM_DIAGNOSTICS_TABLESPACE_LOCATION=/DATA/CDB1/BCA3230693A20C8AE053020011AC0D23/datafile/mgmt_deepdive.dbf
+JVM_DIAGNOSTICS_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_deepdive.dbf
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_PASSWORD=SysPassword1
+AGENT_REGISTRATION_PASSWORD=%%AGENT_REG_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_CONFIRM_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_CONFIRM_PASSWORD=SysPassword1
+AGENT_REGISTRATION_CONFIRM_PASSWORD=%%AGENT_REG_PASSWD%%
 
 #------------------------------------------------------------------#
 # Name        : STATIC_PORTS_FILE
