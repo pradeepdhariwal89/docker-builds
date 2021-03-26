@@ -1,7 +1,12 @@
 #!/bin/bash
 
+gen_hostkeys() {
+	/usr/sbin/sshd-keygen
+}
+
 start_seq() {
   echo "Start sequence `date`" >> /tmp/startSeq.file
+  /usr/sbin/sshd
 }
 
 # SIGTERM-handler
@@ -15,11 +20,15 @@ trap 'stop_seq' SIGTERM
 
 trap 'stop_seq' SIGINT
 
-# Start apps and wait
+if [[ ! -f /etc/ssh/ssh_host_rsa_key]]; then
+	gen_hostkeys
+fi
 
+# Start apps and wait
 start_seq
 
+# Entrypoint command
 while true
 do
-sleep 10
+sleep 3
 done

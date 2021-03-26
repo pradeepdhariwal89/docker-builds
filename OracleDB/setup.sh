@@ -3,7 +3,7 @@
 opts=1
 CONF="N"
 DOMAIN="localdomain"
-HOST="dbserver"
+HOST="db19c"
 BUILD_OPTION=""
 SID="CDB1"
 PORT="1521"
@@ -43,23 +43,34 @@ echo "Building image from dockerfile: "
 docker build --no-cache -t ${HOST}_img .
 process_term $? "error: Docker image build failed."
 
-if [[ BUILD_OPTION == "Install_only" ]]; then
-	echo "-i: Install Only flag passed. Skipping DB creation step."
-	CONTAINERID=`docker run -d -p ${PORT}:${PORT} --name ${HOST}_run --hostname ${HOST}.${DOMAIN} ${HOST}_img`
-else
-	printf "Creating container database."
-	CONTAINERID=`docker run -d \
+# Un-comment below code to mount drives from server
+# CONTAINERID=`docker run -d \
+# 	-p ${PORT}:${PORT} \
+# 	--mount type=bind,source=<Datafile mount>,target=/DATA \
+# 	--mount type=bind,source=<Recovery mount>,target=/RECO \
+# 	--mount type=bind,source=<Scripts Location>,target=/u01/app/oracle/scripts \
+# 	--name ${HOST}_run \
+# 	--hostname ${HOST}.${DOMAIN} \
+# 	${HOST}_img`
+
+CONTAINERID=`docker run -d \
 	-p ${PORT}:${PORT} \
-	--env ORACLE_SID=${SID} \
-	--env PDB_NAME=${PDB_NAME} \
-	--mount type=bind,source=/mnt/d/DATA,target=/DATA \
-	--mount type=bind,source=/mnt/d/RECO,target=/RECO \
 	--name ${HOST}_run \
 	--hostname ${HOST}.${DOMAIN} \
 	${HOST}_img`
+process_term $? "error: Container start failed."
 
-#	CONTAINERID=`docker run -d -p ${PORT}:${PORT} --env ORACLE_SID=${SID} --env PDB_NAME=${PDB_NAME} --name ${HOST}_run --hostname ${HOST}.${DOMAIN} ${HOST}_img`
-	process_term $? "error: Container start failed."
+if [[ BUILD_OPTION == "Install_only" ]]; then
+	echo "-i: Install Only flag passed. Skipping DB creation step."
+	echo "Container created: ${CONTAINERID}"
+else
+	echo "Creating container database."
+	docker exec ${CONTAINERID} /bin/bash -c "su - oracle -c \"\${ORACLE_SCRIPTS}/create_cdb.sh ${SID} ${PORT}\""
+	process_term $? "error: Container database creation failed."
+	if [[ $PDB_NAME ]]; then
+		docker exec ${CONTAINERID} /bin/bash -c "su - oracle -c \"\${ORACLE_SCRIPTS}/create_pdb.sh ${PDB_NAME}\""
+		process_term $? "error: Pluggable database creation failed."
+	fi
 fi
 
 

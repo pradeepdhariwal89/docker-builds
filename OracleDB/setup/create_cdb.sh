@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ORACLE_SID=$1
+PORT=$2
 RECO_DIR=/RECO
 DATA_DIR=/DATA
 HOST=`hostname`
@@ -14,6 +15,9 @@ sed -i "s/%%PORT%%/${PORT}/g" /tmp/tnsnames.tmp
 sed -i "s/%%ORACLE_HOSTNAME%%/${HOST}/g" /tmp/tnsnames.tmp
 sed -i "s/%%ORACLE_SID%%/${ORACLE_SID}/g" /tmp/tnsnames.tmp
 cat /tmp/tnsnames.tmp >> $ORACLE_HOME/network/admin/tnsnames.ora
+
+echo "export ORACLE_SID=/u01/app/oracle" >> ${ORACLE_SCRIPTS}/setEnv.sh
+echo "export PORT=${PORT}" >> ${ORACLE_SCRIPTS}/setEnv.sh
 
 $ORACLE_HOME/bin/dbca -silent -createDatabase								\
      -templateName General_Purpose.dbc										\

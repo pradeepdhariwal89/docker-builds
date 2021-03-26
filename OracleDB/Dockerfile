@@ -3,7 +3,6 @@ FROM oraclelinux:7 as base
 
 ENV TMP=/tmp \
 	TMPDIR=/tmp \
-	PORT=1521 \
 	ORACLE_BASE=/u01/app/oracle \
 	ORACLE_HOME=/u01/app/oracle/product/19.0.0/dbhome_1 \
 	ORA_INVENTORY=/u01/app/oraInventory \
@@ -17,6 +16,7 @@ ENV	LD_LIBRARY_PATH=${ORACLE_HOME}/lib:/lib:/usr/lib \
 
 RUN yum install -y oracle-database-preinstall-19c && \
 	echo 'oracle:Welcome2021' | chpasswd && \
+	sed -i 's/oracle   hard   memlock/#oracle   hard   memlock/' /etc/security/limits.d/oracle-database-preinstall-19c.conf && \
 	mkdir -p /u01 && \
 	mkdir -p /u02/oradata && \
 	mkdir -p /u03/oradata && \
@@ -77,13 +77,11 @@ COPY --chown=oracle:dba setup/* $ORACLE_SCRIPTS/
 FROM base
 
 COPY --chown=oracle:oinstall --from=builder /u01/app /u01/app
+USER oracle
+RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
 
 USER root
 RUN /u01/app/oraInventory/orainstRoot.sh && \
 	/u01/app/oracle/product/19.0.0/dbhome_1/root.sh
-	
-USER oracle
-RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile
-WORKDIR /home/oracle
 
 CMD ${ORACLE_SCRIPTS}/entrypoint.sh

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+${ORACLE_SCRIPTS}/setEnv.sh
+
+export ORAENV_ASK=NO
+. oraenv
+export ORAENV_ASK=YES
+
 PDB_NAME=$1
 HOST=`hostname`
 
