@@ -3,7 +3,7 @@ FROM oraclelinux:7 as base
 ENV TMP=/tmp \
 	TMPDIR=/tmp \
 	ORACLE_BASE=/u01/app/oracle \
-	ORA_INVENTORY=/u01/app/oracle/oraInventory \
+	ORA_INVENTORY=/u01/app/oraInventory \
 	ORACLE_SCRIPTS=/u01/app/oracle/scripts \
 	MW_HOME=/u01/app/oracle/product/oemfm13c \
 	AGENT_BASE=/u01/app/oracle/product/agent13c
@@ -59,8 +59,6 @@ RUN chmod -R 755 /u01 && \
 	/tmp/em13400_linux64.bin -silent -responseFile /tmp/software_only.rsp && \
 	rm /tmp/em13400_linux64*
 
-USER root
-
 
 ##################################################################
 #
@@ -71,6 +69,7 @@ USER root
 FROM base
 
 COPY --chown=oracle:oinstall --from=builder /u01/app /u01/app
+COPY init/* /root/
 	
 USER oracle
 
@@ -79,6 +78,8 @@ RUN echo ". ${ORACLE_SCRIPTS}/setEnv.sh" >> /home/oracle/.bash_profile && \
 
 COPY --chown=oracle:oinstall setup/* ${ORACLE_SCRIPTS}/
 
-WORKDIR /home/oracle
+USER root
 
-CMD ${ORACLE_SCRIPTS}/entrypoint.sh
+RUN ${MW_HOME}/allroot.sh
+
+CMD /root/entrypoint.sh

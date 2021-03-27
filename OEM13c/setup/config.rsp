@@ -43,7 +43,7 @@ UNIX_GROUP_NAME=oinstall
 # Description : Specify INENTORY LOCATION if there is no central inventory and inventory location is not passed using -invptrLoc.
 # Example     : INVENTORY_LOCATION=/scratch/oracle/oraInventory
 #------------------------------------------------------------------#
-INVENTORY_LOCATION=/u01/app/oracle/oraInventory
+INVENTORY_LOCATION=/u01/app/oraInventory
 
 #------------------------------------------------------------------#
 # Name        : SECURITY_UPDATES_VIA_MYORACLESUPPORT
@@ -171,28 +171,28 @@ WLS_ADMIN_SERVER_USERNAME=weblogic
 # Type        : string
 # Description : Weblogic admin server  confirm password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_PASSWORD=%%WLS_ADMIN_PASSWD%%
+WLS_ADMIN_SERVER_PASSWORD=%%WLS_ADMIN_SERVER_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : WLS_ADMIN_SERVER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Weblogic admin server password.
 #------------------------------------------------------------------#
-WLS_ADMIN_SERVER_CONFIRM_PASSWORD=%%WLS_ADMIN_PASSWD%%
+WLS_ADMIN_SERVER_CONFIRM_PASSWORD=%%WLS_ADMIN_SERVER_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_PASSWORD
 # Type        : string
 # Description : Node Manager password.
 #------------------------------------------------------------------#
-NODE_MANAGER_PASSWORD=%%NODE_MGR_PASSWD%%
+NODE_MANAGER_PASSWORD=%%NODE_MANAGER_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : NODE_MANAGER_CONFIRM_PASSWORD
 # Type        : string
 # Description : Node Manager confirm password.
 #------------------------------------------------------------------#
-NODE_MANAGER_CONFIRM_PASSWORD=%%NODE_MGR_PASSWD%%
+NODE_MANAGER_CONFIRM_PASSWORD=%%NODE_MANAGER_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : ORACLE_INSTANCE_HOME_LOCATION
@@ -234,7 +234,7 @@ DATABASE_HOSTNAME=%%DATABASE_HOSTNAME%%
 # Description : Port on which the Repository database is running.
 # Example     : LISTENER_PORT=1521
 #------------------------------------------------------------------#
-LISTENER_PORT=%%DATABASE_PORT%%
+LISTENER_PORT=%%LISTENER_PORT%%
 
 #------------------------------------------------------------------#
 # Name        : SERVICENAME_OR_SID
@@ -242,7 +242,7 @@ LISTENER_PORT=%%DATABASE_PORT%%
 # Description : SID or Service name  of the Repository database.
 # Example     : SERVICENAME_OR_SID=emrep
 #------------------------------------------------------------------#
-SERVICENAME_OR_SID=%%DATABASE_SID%%
+SERVICENAME_OR_SID=%%SERVICENAME_OR_SID%%
 
 #------------------------------------------------------------------#
 # Name        : SYS_PASSWORD
@@ -250,7 +250,7 @@ SERVICENAME_OR_SID=%%DATABASE_SID%%
 # Description : Password of DBA user used to create repository schema.
 # Example     : SYS_PASSWORD=password
 #------------------------------------------------------------------#
-SYS_PASSWORD=%%DATABASE_SYS_PASSWD%%
+SYS_PASSWORD=%%SYS_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_PASSWORD
@@ -258,14 +258,14 @@ SYS_PASSWORD=%%DATABASE_SYS_PASSWD%%
 # Description : Password of sysman user.
 # Example     : SYSMAN_PASSWORD=password
 #------------------------------------------------------------------#
-SYSMAN_PASSWORD=%%SYSMAN_PASSWD%%
+SYSMAN_PASSWORD=%%SYSMAN_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : SYSMAN_CONFIRM_PASSWORD
 # Type        : string
 # Description : Password of sysman user.
 #------------------------------------------------------------------#
-SYSMAN_CONFIRM_PASSWORD=%%SYSMAN_PASSWD%%
+SYSMAN_CONFIRM_PASSWORD=%%SYSMAN_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : DEPLOYMENT_SIZE
@@ -280,7 +280,7 @@ DEPLOYMENT_SIZE=%%DEPLOYMENT_SIZE%%
 # Description : Management table space location.
 # Example     : MANAGEMENT_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt.dbf
 #------------------------------------------------------------------#
-MANAGEMENT_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt.dbf
+MANAGEMENT_TABLESPACE_LOCATION=%%MANAGEMENT_TABLESPACE_LOCATION%%/mgmt.dbf
 
 #------------------------------------------------------------------#
 # Name        : CONFIGURATION_DATA_TABLESPACE_LOCATION
@@ -288,7 +288,7 @@ MANAGEMENT_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt.dbf
 # Description : Configuration table space location.
 # Example     : CONFIGURATION_DATA_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_ecm_depot1.dbf
 #------------------------------------------------------------------#
-CONFIGURATION_DATA_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_ecm_depot1.dbf
+CONFIGURATION_DATA_TABLESPACE_LOCATION=%%MANAGEMENT_TABLESPACE_LOCATION%%/mgmt_ecm_depot1.dbf
 
 #------------------------------------------------------------------#
 # Name        : JVM_DIAGNOSTICS_TABLESPACE_LOCATION
@@ -296,21 +296,21 @@ CONFIGURATION_DATA_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_ecm_depot1
 # Description : JVM table space location.
 # Example     : JVM_DIAGNOSTICS_TABLESPACE_LOCATION=/scratch/OracleHomes/oradata/mgmt_deepdive.dbf
 #------------------------------------------------------------------#
-JVM_DIAGNOSTICS_TABLESPACE_LOCATION=%%DATABASE_DATAFILE_LOC%%/mgmt_deepdive.dbf
+JVM_DIAGNOSTICS_TABLESPACE_LOCATION=%%MANAGEMENT_TABLESPACE_LOCATION%%/mgmt_deepdive.dbf
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_PASSWORD=%%AGENT_REG_PASSWD%%
+AGENT_REGISTRATION_PASSWORD=%%AGENT_REGISTRATION_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : AGENT_REGISTRATION_CONFIRM_PASSWORD
 # Type        : string
 # Description : Registration Password.
 #------------------------------------------------------------------#
-AGENT_REGISTRATION_CONFIRM_PASSWORD=%%AGENT_REG_PASSWD%%
+AGENT_REGISTRATION_CONFIRM_PASSWORD=%%AGENT_REGISTRATION_PASSWORD%%
 
 #------------------------------------------------------------------#
 # Name        : STATIC_PORTS_FILE
