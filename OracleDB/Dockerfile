@@ -84,4 +84,6 @@ USER root
 RUN /u01/app/oraInventory/orainstRoot.sh && \
 	/u01/app/oracle/product/19.0.0/dbhome_1/root.sh
 
+EXPOSE 1521
+
 CMD ${ORACLE_SCRIPTS}/entrypoint.sh
