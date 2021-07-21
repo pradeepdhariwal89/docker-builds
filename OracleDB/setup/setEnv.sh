@@ -9,3 +9,4 @@ export CLASSPATH=${ORACLE_HOME}/jlib:${ORACLE_HOME}/rdbms/jlib
 export PATH=${ORACLE_HOME}/bin:/usr/sbin:/usr/local/bin:$PATH
 
 ## Set oracle user environment variables here.
+
